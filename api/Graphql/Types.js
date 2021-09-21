@@ -4,6 +4,11 @@ export const typeDefs = gql`
 
     directive @isAuthenticated on FIELD_DEFINITION
     
+    enum InvoiceSummaryEnum {
+        Customer,
+        Date
+    }
+    
     input InvoicesItemInput{
         itemName: String!,
         itemType: String,
@@ -99,6 +104,14 @@ export const typeDefs = gql`
         jwt: String
     }
     
+    type InvoiceSummary {
+        totalItems: Int,
+        totalAmount: Float,
+        totalInvoice: Int,
+        customerName: String,
+        date: String
+    }
+    
 #    All Query
     type Query{
         testQuery: msg
@@ -106,6 +119,9 @@ export const typeDefs = gql`
         ###Invoices
         ShowAllInvoices(limit: Int!, offset: Int!): InvoicePagination @isAuthenticated
         ShowSingleInvoice(invoices_id: ID!): Invoices @isAuthenticated
+        
+        """Do not use enum if u want to see only the summary""" 
+        InvoiceSummary(groupBy: InvoiceSummaryEnum): [InvoiceSummary] @isAuthenticated
     }
     
 #    ALL Mutation
