@@ -1,5 +1,13 @@
 import {testMutation} from "./Test";
+import {GoogleLoginWithOauth} from "./UserAuthentication";
+import {CreateInvoices} from "./Invoices";
 
 export const Mutation = {
-    testMutation
+    testMutation,
+
+    //Authentication
+    GoogleLoginWithOauth,
+
+    //Invoice
+    CreateInvoices
 }

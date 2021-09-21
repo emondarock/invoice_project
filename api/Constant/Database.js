@@ -3,7 +3,7 @@ const elasticsearch = require('elasticsearch');
 mongoose.Promise = global.Promise;
 //Note: Production
 // mongoose.connect('mongodb://<dbuser>:<dbpassword>@dbh29.mlab.com:27297/bazari');
-mongoose.connect('mongodb://localhost/rashed_medicine', {
+mongoose.connect('mongodb://localhost/invoicedb', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

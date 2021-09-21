@@ -1,4 +1,6 @@
 // console.log(process.env.BUCKET)
+import {verifyJwtToken} from "./Helper/JWTValidation";
+
 const http = require('http');
 const db = require('./Constant/Database');
 import {typeDefs, resolvers} from './Graphql';
@@ -16,27 +18,23 @@ const server = new ApolloServer({
     schemaDirectives: {
         isAuthenticated
     },
-    // context: async ({req,connection}) => {
-    //     // const tokenEnsure = await ensureJWTToken(req);
-    //     // const validateToken = await validateJWTToken(req, token.jwtToken)
-    //     // console.log(req.headers["authorization"])
-    //     if (connection) {
-    //         // check connection for metadata
-    //         return connection.context;
-    //     }
-    //
-    //     const jwtData = await verifyJwtToken(req.headers["authorization"]);
-    //     if (req.headers["authorization"] !== undefined) {
-    //         // console.log("Token Bearer => ", req.headers["authorization"])
-    //         // console.log("USER IP => ", req.ip)
-    //         // console.log("USER DECODE DATA => ", jwtData)
-    //     }
-    //     return {
-    //         bearerToken: req.headers["authorization"],
-    //         ip: req.ip,
-    //         user: jwtData
-    //     };
-    // },
+    context: async ({req,connection}) => {
+        if (connection) {
+            // check connection for metadata
+            return connection.context;
+        }
+
+        const jwtData = await verifyJwtToken(req.headers["authorization"]);
+        if (req.headers["Authorization"] !== undefined) {
+            console.log("Token Bearer => ", req.headers["authorization"])
+            console.log("USER DECODE DATA => ", jwtData)
+        }
+        return {
+            bearerToken: req.headers["authorization"],
+            ip: req.ip,
+            user: jwtData
+        };
+    },
     endpoint: {
         url: "http://localhost:3000"
     },
