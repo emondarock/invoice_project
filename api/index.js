@@ -1,20 +1,17 @@
-// console.log(process.env.BUCKET)
 import {verifyJwtToken} from "./Helper/JWTValidation";
-
 const http = require('http');
-const db = require('./Constant/Database');
+require('./Constant/Database');
 import {typeDefs, resolvers} from './Graphql';
-// import {verifyJwtToken} from "./Helper/JWTValidation";
 import {isAuthenticated} from "./Graphql/Directives";
 require('dotenv').config();
-const {ApolloServer, gql} = require("apollo-server-express");
+const {ApolloServer} = require("apollo-server-express");
 const express = require('express');
-// console.log(process.env.NODE_ENV)
+require('dotenv').config();
 const app = express();
+
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-
     schemaDirectives: {
         isAuthenticated
     },
@@ -58,5 +55,4 @@ app.get("/", (req,res)=>{
 
 httpServer.listen({port: process.env.PORT || 5000},(url)=>{
     console.log(`🚀 Server ready at http://localhost:${process.env.PORT || 5000}${server.graphqlPath}`)
-    console.log(`🚀 Subscriptions ready at ws://localhost:${process.env.PORT || 5000}${server.subscriptionsPath}`)
 })

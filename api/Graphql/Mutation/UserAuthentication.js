@@ -13,16 +13,20 @@ export const GoogleLoginWithOauth = async (_,args, ctx,req) => {
     const payload = ticket.getPayload();
     console.log(payload)
     if (payload.email_verified){
-        const newUser = new User({
-            firstName: payload.name.split(' ')[0],
-            lastName: payload.name.split(' ')[1],
-            email: payload.email,
-            isVerified: payload.email_verified,
-        })
-        await newUser.save()
+        let user = await User.findOne({email: payload.email})
+        if (!user){
+            user = new User({
+                firstName: payload.name.split(' ')[0],
+                lastName: payload.name.split(' ')[1],
+                email: payload.email,
+                isVerified: payload.email_verified,
+            })
+            await user.save()
+
+        }
         const jwt = await createJWT({
-            _id: newUser._id,
-            email: newUser.email,
+            _id: user._id,
+            email: user.email,
             isVerified: payload.email_verified
         })
 
