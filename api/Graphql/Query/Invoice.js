@@ -6,7 +6,7 @@ export const ShowAllInvoices = async (parent, args, ctx, req) => {
         .populate("customer")
         .populate("invoiceItems")
         .populate("invoiceCreator")
-        .limit(limit).skip(limit * offset)
+        .limit(limit).skip(limit * offset).sort({_id: -1})
     const count = await Invoices.countDocuments()
 
     return {
