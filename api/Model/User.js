@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import timestamps from 'mongoose-timestamp';
-import bcrypt from "bcrypt";
 
 const UserSchema = new Schema({
     firstName: {
@@ -41,11 +40,3 @@ UserSchema.plugin(timestamps);
 
 UserSchema.index({ createdAt: 1, updatedAt: 1});
 
-
-UserSchema.methods.encryptPassword = function (password) {
-    return bcrypt.hashSync(password, 10);
-};
-UserSchema.methods.checkPassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
-};
-export const User = mongoose.model('User', UserSchema);
