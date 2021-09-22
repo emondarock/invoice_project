@@ -49,6 +49,33 @@ mutation{
   }
 }
 
+# Show invoice list
+query {
+  ShowAllInvoices(limit:10, offset: 0){
+    invoices{
+      id
+      customer{
+        id
+        customerName
+        customerPhoneNumber
+        customerEmail
+        customerAddress
+      }
+      invoiceItems{
+        id
+        itemName
+        itemType
+        itemQty
+      }
+      total
+      subTotal
+      discount
+    }
+  }
+}
+
+
+
 # Invoice Summary
 query{
   InvoiceSummary(groupBy: Customer){
