@@ -66,8 +66,8 @@ export const InvoiceSummary = async (parent, args, ctx, req) => {
     }
     else if (groupBy === "Date") {
 
-        group._id = {  day: { $dayOfYear: "$updatedAt"}}
-        group.first = {$min: "$updatedAt"}
+        group._id = {  day: { $dayOfYear: "$createdAt"}}
+        group.first = {$min: "$createdAt"}
         project.date = "$first"
 
         return Invoices.aggregate()

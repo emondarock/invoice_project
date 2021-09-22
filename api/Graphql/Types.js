@@ -133,5 +133,6 @@ export const typeDefs = gql`
         
         ###Invoice
         CreateInvoices(payload: InvoiceInput): MsgWithCode @isAuthenticated
+        CreateBulkInvoices: MsgWithCode
     }
 `

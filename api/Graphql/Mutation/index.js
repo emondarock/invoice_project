@@ -1,6 +1,6 @@
 import {testMutation} from "./Test";
 import {GoogleLoginWithOauth} from "./UserAuthentication";
-import {CreateInvoices} from "./Invoices";
+import {CreateBulkInvoices, CreateInvoices} from "./Invoices";
 
 export const Mutation = {
     testMutation,
@@ -9,5 +9,6 @@ export const Mutation = {
     GoogleLoginWithOauth,
 
     //Invoice
-    CreateInvoices
+    CreateInvoices,
+    CreateBulkInvoices
 }
