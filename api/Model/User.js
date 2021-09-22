@@ -40,3 +40,5 @@ UserSchema.plugin(timestamps);
 
 UserSchema.index({ createdAt: 1, updatedAt: 1});
 
+
+export const User = mongoose.model('User', UserSchema);
